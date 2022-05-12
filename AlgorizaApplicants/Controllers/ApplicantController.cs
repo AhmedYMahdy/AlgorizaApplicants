@@ -24,20 +24,29 @@ namespace AlgorizaApplicants.API.Controllers
         [ProducesResponseType(typeof(GlobalResponse<bool>), 200)]
         public async Task<IActionResult> Add([FromBody] ApplicantDTO applicantDto)
         {
-            var result = await _applicantsService.Add(applicantDto);
-            if (!result)
-                return Error("Error in Adding Applicant", (int)HttpStatusCode.BadRequest);
-            return Success();
+            if (ModelState.IsValid)
+            {
+                var result = await _applicantsService.Add(applicantDto);
+                if (!result)
+                    return Error("Error in Adding Applicant", (int)HttpStatusCode.BadRequest);
+                return Success();
+            }
+            return Error("Error invalid parameters", (int)HttpStatusCode.UnsupportedMediaType);
+
         }
 
         [HttpPost("Update")]
         [ProducesResponseType(typeof(GlobalResponse<bool>), 200)]
         public async Task<IActionResult> Update([FromBody] ApplicantDetailsDTO applicantDto)
         {
-            var result = await _applicantsService.Update(applicantDto);
-            if (!result)
-                return Error("Error in Updating Applicant", (int)HttpStatusCode.BadRequest);
-            return Success();
+            if (ModelState.IsValid)
+            {
+                var result = await _applicantsService.Update(applicantDto);
+                if (!result)
+                    return Error("Error in Updating Applicant", (int)HttpStatusCode.BadRequest);
+                return Success();
+            }
+            return Error("Error invalid parameters", (int)HttpStatusCode.UnsupportedMediaType);
         }
 
         [HttpGet("GetById/{id}")]

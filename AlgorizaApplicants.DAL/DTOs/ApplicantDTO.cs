@@ -5,23 +5,32 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation;
 
 namespace AlgorizaApplicants.DAL.DTOs
 {
     public class ApplicantDTO
     {
-        [MinLength(5)]
         public string Name { get; set; }
-        [MinLength(5)]
         public string FamilyName { get; set; }
-        [MinLength(10)]
         public string Address { get; set; }
         public string CountryOfOrigin { get; set; }
-        [EmailAddress]
         public string EmailAddress { get; set; }
-        [Range(20, 60)]
         public int Age { get; set; }
-        [DefaultValue(false)]
-        public bool Hired { get; set; }
+        public bool? Hired { get; set; } = false;
     }
+
+    public class ApplicantValidator : AbstractValidator<ApplicantDTO>
+    {
+        public ApplicantValidator()
+        {
+            RuleFor(a => a.Name).NotNull().NotEmpty().MinimumLength(5);
+            RuleFor(a => a.FamilyName).NotNull().NotEmpty().MinimumLength(5);
+            RuleFor(a => a.Address).NotNull().NotEmpty().MinimumLength(10);
+            RuleFor(a => a.CountryOfOrigin).NotNull().NotEmpty();
+            RuleFor(a => a.EmailAddress).NotNull().NotEmpty().EmailAddress();
+            RuleFor(a => a.Age).NotNull().NotEmpty().ExclusiveBetween(20, 60);
+        }
+    }
+
 }

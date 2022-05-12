@@ -1,22 +1,25 @@
 using System.Reflection;
 using AlgorizaApplicants.API.Helpers;
 using AlgorizaApplicants.DAL.DbContext;
+using AlgorizaApplicants.DAL.DTOs;
 using AlgorizaApplicants.DAL.Helpers;
 using AlgorizaApplicants.DAL.RepositoryAbstraction;
 using AlgorizaApplicants.Services.MapperConfiguration;
 using AlgorizaApplicants.Services.RepositoryImplementation;
 using AlgorizaApplicants.Services.Service.Abstraction;
 using AlgorizaApplicants.Services.Service.Implementation;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().
+    AddFluentValidation(fv=>
+    fv.RegisterValidatorsFromAssemblyContaining<ApplicantValidator>());
 
 //Register DB and Context
 builder.Services.AddDbContext<AlgorizaContext>(opts =>

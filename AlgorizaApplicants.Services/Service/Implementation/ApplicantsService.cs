@@ -29,7 +29,7 @@ namespace AlgorizaApplicants.Services.Service.Implementation
                 var applicantEntity = _mapper.Map<Applicant>(applicantDto);
                 await _applicantRepository.AddAsync(applicantEntity);
                 var result = await _uow.SaveChangeAsync();
-                //var result = await _applicantRepository.SaveChangesAsync();
+                //var result = await _applicantRepository.SaveChangesAsync(); 
                 return result > 0;
             }
             catch (Exception ex)

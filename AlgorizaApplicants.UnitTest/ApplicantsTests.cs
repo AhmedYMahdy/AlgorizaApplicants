@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AlgorizaApplicants.API.Controllers;
@@ -78,6 +79,35 @@ namespace AlgorizaApplicants.UnitTest
             details?.IsSuccess.Should().Be(false);
             details?.ErrorMessage.Should().Contain("Error in Adding Applicant");
         }
+        
+        
+        [Fact]
+        public async Task AddApplicant_ReturnsUnSupportedMediaType()
+        {
+            //Arrange
+            _applicantService.Add(Arg.Any<ApplicantDTO>()).Returns(false);
+            _controller.ModelState.AddModelError("Name", "error");
+
+            //Act
+            var result = await _controller.Add(new ApplicantDTO
+            {
+                Name = "Ah",
+                FamilyName = "Ma",
+                Age = 18,
+                Address = "Cai,Eg.",
+                Hired = false,
+                EmailAddress = "Ahmed.ucef",
+                CountryOfOrigin = "Egy"
+            });
+
+            //Assert
+            var response = result.Should().BeOfType<ObjectResult>().Subject;
+            response.StatusCode.Should().Be(StatusCodes.Status415UnsupportedMediaType);
+            var details = (GlobalResponse<object>)response.Value;
+            details?.IsSuccess.Should().Be(false);
+            details?.ErrorMessage.Should().Contain("Error invalid parameters");
+        }
+        
 
         [Fact]
         public async Task UpdateApplicant_ReturnsOk()
@@ -116,13 +146,13 @@ namespace AlgorizaApplicants.UnitTest
             var result = await _controller.Update(new ApplicantDetailsDTO()
             {
                 Id = 50,
-                Name = "Ah",
-                FamilyName = "Ma",
-                Age = 18,
-                Address = "Cai,Eg.",
+                Name = "Ahmed",
+                FamilyName = "Mahdy",
+                Age = 25,
+                Address = "New York, US.",
                 Hired = false,
-                EmailAddress = "Ahmed.ucef",
-                CountryOfOrigin = "Egy"
+                EmailAddress = "Ahmed.ucef@hotmail.com",
+                CountryOfOrigin = "Egypt"
             });
 
             //Assert
@@ -133,6 +163,33 @@ namespace AlgorizaApplicants.UnitTest
             details?.ErrorMessage.Should().Contain("Error in Updating Applicant");
         }
 
+        [Fact]
+        public async Task UpdateApplicant_ReturnsUnSupportedMediaType()
+        {
+            //Arrange
+            _applicantService.Update(Arg.Any<ApplicantDetailsDTO>()).Returns(false);
+            _controller.ModelState.AddModelError("Name","error");
+
+            //Act
+            var result = await _controller.Update(new ApplicantDetailsDTO()
+            {
+                Id = 50,
+                Name = "Ahm",
+                FamilyName = "Mahdy",
+                Age = 25,
+                Address = "New York, US.",
+                Hired = false,
+                EmailAddress = "Ahmed.ucef@hotmail.com",
+                CountryOfOrigin = "Egypt"
+            });
+
+            //Assert
+            var response = result.Should().BeOfType<ObjectResult>().Subject;
+            response.StatusCode.Should().Be(StatusCodes.Status415UnsupportedMediaType);
+            var details = (GlobalResponse<object>)response.Value;
+            details?.IsSuccess.Should().Be(false);
+            details?.ErrorMessage.Should().Contain("Error invalid parameters");
+        }
 
         [Fact]
         public async Task GetAll_ReturnsOk()

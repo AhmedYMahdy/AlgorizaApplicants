@@ -8,21 +8,8 @@ using System.Threading.Tasks;
 
 namespace AlgorizaApplicants.DAL.DTOs
 {
-    public class ApplicantDetailsDTO
+    public class ApplicantDetailsDTO: ApplicantDTO
     {
         public long Id { get; set; }
-        [MinLength(5)]
-        public string Name { get; set; }
-        [MinLength(5)]
-        public string FamilyName { get; set; }
-        [MinLength(10)]
-        public string Address { get; set; }
-        public string CountryOfOrigin { get; set; }
-        [EmailAddress]
-        public string EmailAddress { get; set; }
-        [Range(20, 60)]
-        public int Age { get; set; }
-        [DefaultValue(false)]
-        public bool Hired { get; set; }
     }
 }
