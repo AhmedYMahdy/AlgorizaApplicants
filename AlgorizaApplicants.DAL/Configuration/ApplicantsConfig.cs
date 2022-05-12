@@ -20,6 +20,8 @@ namespace AlgorizaApplicants.DAL.Configuration
             builder.Property(e => e.Address).HasMaxLength(500);
             builder.Property(e => e.CountryOfOrigin).HasMaxLength(50);
             builder.Property(e => e.Hired).HasDefaultValue(false);
+            builder.Property(e => e.CreationDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(e => e.ModificationDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
     }
 }

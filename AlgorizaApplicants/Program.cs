@@ -1,10 +1,15 @@
 using System.Reflection;
 using AlgorizaApplicants.API.Helpers;
 using AlgorizaApplicants.DAL.DbContext;
+using AlgorizaApplicants.DAL.Helpers;
 using AlgorizaApplicants.DAL.RepositoryAbstraction;
+using AlgorizaApplicants.Services.MapperConfiguration;
 using AlgorizaApplicants.Services.RepositoryImplementation;
+using AlgorizaApplicants.Services.Service.Abstraction;
+using AlgorizaApplicants.Services.Service.Implementation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 
@@ -13,12 +18,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//DB
+//Register DB and Context
 builder.Services.AddDbContext<AlgorizaContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("AlgorizaCS")));
 builder.Services.AddScoped(typeof(AlgorizaContext));
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
+//Register Repositories
 builder.Services.AddScoped<IApplicantsRepository, ApplicantsRepository>();
+
+//Register Services
+builder.Services.AddTransient<IApplicantsService, ApplicantsService>();
+builder.Services.AddTransient<ICountriesService, CountriesService>();
+
+//Register HttpClient
+builder.Services.AddHttpClient();
 
 //Swagger
 builder.Services.AddSwaggerGen(options =>
@@ -32,6 +46,7 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<AddRequiredHeaderParameter>();
 });
 
+builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MapperConfig)));
 
 var app = builder.Build();
 

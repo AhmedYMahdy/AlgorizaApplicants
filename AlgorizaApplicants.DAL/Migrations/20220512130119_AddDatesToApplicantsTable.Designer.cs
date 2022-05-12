@@ -4,6 +4,7 @@ using AlgorizaApplicants.DAL.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlgorizaApplicants.DAL.Migrations
 {
     [DbContext(typeof(AlgorizaContext))]
-    partial class AlgorizaContextModelSnapshot : ModelSnapshot
+    [Migration("20220512130119_AddDatesToApplicantsTable")]
+    partial class AddDatesToApplicantsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +48,7 @@ namespace AlgorizaApplicants.DAL.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasDefaultValue(new DateTime(2022, 5, 12, 13, 1, 19, 2, DateTimeKind.Utc).AddTicks(8531));
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
@@ -65,7 +67,7 @@ namespace AlgorizaApplicants.DAL.Migrations
                     b.Property<DateTime>("ModificationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasDefaultValue(new DateTime(2022, 5, 12, 13, 1, 19, 2, DateTimeKind.Utc).AddTicks(8659));
 
                     b.Property<string>("Name")
                         .IsRequired()

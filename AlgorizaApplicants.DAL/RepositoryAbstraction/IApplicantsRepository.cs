@@ -5,8 +5,9 @@ namespace AlgorizaApplicants.DAL.RepositoryAbstraction;
 public interface IApplicantsRepository
 {
     Task<Applicant> AddAsync(Applicant entity);
-    void Delete(long id);
+    void Remove(long id);
     Task<Applicant> UpdateAsync(Applicant entity);
-    Task<IQueryable<Applicant>> GetAllAsync();
-    Task<Applicant> GetById(long id);
+    Task<IEnumerable<Applicant>> GetAllAsync();
+    Task<Applicant> GetByIdAsync(long id);
+    Task<int> SaveChangesAsync();
 }

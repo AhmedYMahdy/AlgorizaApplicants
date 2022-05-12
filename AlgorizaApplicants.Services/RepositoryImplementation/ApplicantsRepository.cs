@@ -13,9 +13,11 @@ namespace AlgorizaApplicants.Services.RepositoryImplementation
     public class ApplicantsRepository : IApplicantsRepository
     {
         private DbSet<Applicant> _dbSet;
+        private AlgorizaContext _context;
 
         public ApplicantsRepository(AlgorizaContext dbContext)
         {
+            _context = dbContext;
             _dbSet = dbContext.Set<Applicant>();
         }
         public async Task<Applicant> AddAsync(Applicant entity)
@@ -31,7 +33,7 @@ namespace AlgorizaApplicants.Services.RepositoryImplementation
 
             }
         }
-        public void Delete(long id)
+        public void Remove(long id)
         {
             var exist = _dbSet.Find(id);
 
@@ -53,13 +55,18 @@ namespace AlgorizaApplicants.Services.RepositoryImplementation
                 throw new Exception(e.Message);
             }
         }
-        public async Task<IQueryable<Applicant>> GetAllAsync()
+        public async Task<IEnumerable<Applicant>> GetAllAsync()
         {
-            return _dbSet;
+            return _dbSet.AsEnumerable();
         }
-        public async Task<Applicant> GetById(long id)
+        public async Task<Applicant> GetByIdAsync(long id)
         {
             return await _dbSet.Where(a=>a.Id==id).AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync();
         }
     }
 }

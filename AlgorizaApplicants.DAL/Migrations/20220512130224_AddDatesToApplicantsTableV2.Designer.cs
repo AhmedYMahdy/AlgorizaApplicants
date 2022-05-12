@@ -4,6 +4,7 @@ using AlgorizaApplicants.DAL.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlgorizaApplicants.DAL.Migrations
 {
     [DbContext(typeof(AlgorizaContext))]
-    partial class AlgorizaContextModelSnapshot : ModelSnapshot
+    [Migration("20220512130224_AddDatesToApplicantsTableV2")]
+    partial class AddDatesToApplicantsTableV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,9 +65,7 @@ namespace AlgorizaApplicants.DAL.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<DateTime>("ModificationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
