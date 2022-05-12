@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AlgorizaApplicants.DAL.DbContext;
 using AlgorizaApplicants.DAL.Entity;
 using AlgorizaApplicants.DAL.RepositoryAbstraction;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ namespace AlgorizaApplicants.Services.RepositoryImplementation
     {
         private DbSet<Applicant> _dbSet;
 
-        public ApplicantsRepository(Microsoft.EntityFrameworkCore.DbContext dbContext)
+        public ApplicantsRepository(AlgorizaContext dbContext)
         {
             _dbSet = dbContext.Set<Applicant>();
         }
