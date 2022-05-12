@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="RepositoryImplementation\" />
     <Folder Include="Service\Implementation\" />
     <Folder Include="Service\Abstraction\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlgorizaApplicants.DAL\AlgorizaApplicants.DAL.csproj" />
   </ItemGroup>
 
 </Project>

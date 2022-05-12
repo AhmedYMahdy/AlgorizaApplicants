@@ -1,6 +1,8 @@
 using System.Reflection;
 using AlgorizaApplicants.API.Helpers;
 using AlgorizaApplicants.DAL.DbContext;
+using AlgorizaApplicants.DAL.RepositoryAbstraction;
+using AlgorizaApplicants.Services.RepositoryImplementation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.OpenApi.Models;
@@ -15,6 +17,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AlgorizaContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("AlgorizaCS")));
 builder.Services.AddScoped(typeof(AlgorizaContext));
+
+builder.Services.AddScoped<IApplicantsRepository, ApplicantsRepository>();
 
 //Swagger
 builder.Services.AddSwaggerGen(options =>
