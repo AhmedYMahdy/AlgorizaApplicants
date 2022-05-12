@@ -17,12 +17,6 @@ namespace AlgorizaApplicants.DAL.DbContext
 
         public virtual DbSet<Applicant> Applicants { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //        optionsBuilder.UseSqlServer("Server=.;Initial Catalog=Algoriza;Trusted_Connection=True");
-        //}
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ApplicantsConfig());
