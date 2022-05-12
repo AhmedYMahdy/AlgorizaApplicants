@@ -5,9 +5,11 @@ VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgorizaApplicants.API", "AlgorizaApplicants\AlgorizaApplicants.API.csproj", "{1A836946-E411-4529-8BC3-62516EC7CF18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorizaApplicants.DAL", "AlgorizaApplicants.DAL\AlgorizaApplicants.DAL.csproj", "{A65A02F0-D20A-4151-BC8F-04394BD511CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgorizaApplicants.DAL", "AlgorizaApplicants.DAL\AlgorizaApplicants.DAL.csproj", "{A65A02F0-D20A-4151-BC8F-04394BD511CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorizaApplicants.Services", "AlgorizaApplicants.Services\AlgorizaApplicants.Services.csproj", "{9AC7E5A1-778B-4A9C-88FC-799E2561D289}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgorizaApplicants.Services", "AlgorizaApplicants.Services\AlgorizaApplicants.Services.csproj", "{9AC7E5A1-778B-4A9C-88FC-799E2561D289}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorizaApplicants.UnitTest", "AlgorizaApplicants.UnitTest\AlgorizaApplicants.UnitTest.csproj", "{E36CD019-3B04-4C57-B429-1732B387DAC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{9AC7E5A1-778B-4A9C-88FC-799E2561D289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AC7E5A1-778B-4A9C-88FC-799E2561D289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AC7E5A1-778B-4A9C-88FC-799E2561D289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E36CD019-3B04-4C57-B429-1732B387DAC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E36CD019-3B04-4C57-B429-1732B387DAC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E36CD019-3B04-4C57-B429-1732B387DAC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E36CD019-3B04-4C57-B429-1732B387DAC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

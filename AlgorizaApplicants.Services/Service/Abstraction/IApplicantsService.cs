@@ -4,11 +4,11 @@ using AlgorizaApplicants.DAL.Entity;
 
 namespace AlgorizaApplicants.Services.Service.Abstraction;
 
-public interface IApplicantsService
+public abstract class IApplicantsService
 {
-    Task<bool> AddApplicant(ApplicantDTO applicantDto);
-    Task<bool> UpdateRole(ApplicantDetailsDTO applicantDTO);
-    Task<ApplicantDetailsDTO> GetById(long id);
-    Task<PaginationObject<ApplicantDetailsDTO>> GetAll();
-    Task<(bool, string)> Remove(long id);
+    public abstract Task<bool> Add(ApplicantDTO applicantDto);
+    public abstract Task<bool> Update(ApplicantDetailsDTO applicantDto);
+    public abstract Task<ApplicantDetailsDTO> GetById(long id);
+    public abstract Task<PaginationObject<ApplicantDetailsDTO>> GetAll();
+    public abstract Task<bool> Remove(long id);
 }

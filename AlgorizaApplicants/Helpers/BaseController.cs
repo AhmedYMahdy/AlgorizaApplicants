@@ -5,10 +5,11 @@ namespace AlgorizaApplicants.API.Helpers
 {
     public class BaseController : ControllerBase
     {
-        protected OkObjectResult Success(object data=null)
+        protected ObjectResult Success(object data=null)
         {
             var result = new GlobalResponse<object>().SuccessResult(data);
-            return new OkObjectResult(result);
+            return new ObjectResult(result)
+                {StatusCode = StatusCodes.Status200OK};
         }
 
         protected ObjectResult Error(string errorMessage, int statusCode)

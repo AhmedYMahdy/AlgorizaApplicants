@@ -22,7 +22,7 @@ namespace AlgorizaApplicants.Services.Service.Implementation
         }
 
 
-        public async Task<bool> AddApplicant(ApplicantDTO applicantDto)
+        public override async Task<bool> Add(ApplicantDTO applicantDto)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace AlgorizaApplicants.Services.Service.Implementation
             }
         }
 
-        public async Task<bool> UpdateRole(ApplicantDetailsDTO applicantDTO)
+        public override async Task<bool> Update(ApplicantDetailsDTO applicantDTO)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace AlgorizaApplicants.Services.Service.Implementation
             }
         }
 
-        public async Task<ApplicantDetailsDTO> GetById(long id)
+        public override async Task<ApplicantDetailsDTO> GetById(long id)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace AlgorizaApplicants.Services.Service.Implementation
             }
         }
 
-        public async Task<PaginationObject<ApplicantDetailsDTO>> GetAll()
+        public override async Task<PaginationObject<ApplicantDetailsDTO>> GetAll()
         {
             try
             {
@@ -90,17 +90,17 @@ namespace AlgorizaApplicants.Services.Service.Implementation
             }
         }
 
-        public async Task<(bool, string)> Remove(long id)
+        public override async Task<bool> Remove(long id)
         {
             try
             {
                _applicantRepository.Remove(id);
                 var result = await _uow.SaveChangeAsync();
-                return (result > 0, "");
+                return result > 0;
             }
             catch (Exception ex)
             {
-                return (false, "ErrorDeleteUserRole");
+                return false;
             }
         }
     }
