@@ -55,7 +55,6 @@ namespace AlgorizaApplicants.API.Controllers
         }
 
         [HttpPost("Update/{id}")]
-        [Swashbuckle.AspNetCore.]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ApplicantDetailsDTO applicantDto)
         {

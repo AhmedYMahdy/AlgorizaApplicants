@@ -23,7 +23,7 @@
         </div>
         <div class="mb-3">
             <label asp-for="CountryOfOrigin"></label>
-            <input asp-for="CountryOfOrigin" required="true" placeholder="Egypt, Berlin, Etc.." class="form-control"/>
+            <input asp-for="CountryOfOrigin" onchange="ValidateCountry()" required="true" placeholder="Egypt, Berlin, Etc.." class="form-control"/>
             <span asp-validation-for="CountryOfOrigin" class="text-danger"></span>
         </div>
         <div class="mb-3">
@@ -44,3 +44,17 @@
         <a asp-controller="Applicant" asp-action="Applicants" class="btn btn-secondary" style="width:150px"> Back To List </a>
     </div>
 </form>
+
+
+<script>
+    function ValidateCountry() {
+        var request = new XMLHttpRequest();
+        const inpObj = document.getElementById("countryOfOrigin").value;
+        request.open("GET", "https://localhost:7228/api/Countries/Validate/"+inpObj);
+        request.send();
+        request.onload = () => {
+            if (request.status != 200) {
+                alert("You must add a valid Country");
+            }};
+    }
+</script>
