@@ -1,0 +1,81 @@
+﻿@model AlgorizaApplicants.DAL.DTOs.ApplicantDTO
+<form method="post">
+    <div class="border-3 mt-4">
+        <div class="row bp-2">
+            <h2 class="text-primary"> Add An Applicant </h2>
+            <hr/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" type="text" minlength="5 "required="true" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="FamilyName"></label>
+            <input asp-for="FamilyName" type="text" minlength="5" required="true" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Address"></label>
+            <input asp-for="Address" type="text" minlength="10" required="true" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CountryOfOrigin"></label>
+            <input asp-for="CountryOfOrigin" type="text" required="true" placeholder="Egypt, Berlin, Etc.." class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="EmailAddress"></label>
+            <input asp-for="EmailAddress" type="email" required="true" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Age"></label>
+            <input asp-for="Age" type="number" min="20" max="60" required="true" class="form-control"/>
+        </div>
+        <div class="mb-3 form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <label class="form-check-label" for="gridCheck">
+                Hired?
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Add</button>
+        <a asp-controller="Applicant" asp-action="Applicants" class="btn btn-secondary" style="width:150px"> Back To List </a>
+    </div>
+</form>
+
+<script src="lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    
+    $(document).ready(function () {
+
+        var options = {};
+        
+        const inpObj = document.getElementById("countryOfOrigin").value;
+        options.url = "https://localhost:7228/api/Countries/Validate/"+inpObj;
+        options.type = "GET";
+        options.dataType = "json";
+        options.success = function (states) {
+
+            states.forEach(function (state) {
+                $("#state").append("<option>" + state.stateName + "</option>"
+                )
+            });
+        };
+
+        options.error = function () {
+            $("#msg").html("Error while calling the Web API!");
+        };
+        $.ajax(options);
+    });
+
+
+    function ValidateCountry() {
+        debugger;
+        var request = new XMLHttpRequest();
+        request.open("GET", url, true);
+        request.setRequestHeader("Content-type", "application/json");
+        request.onreadystatechange = function () {
+            if (request.status != 200) {
+                alert("You must add a valid Country");
+                return false;
+            }};
+    }
+</script>

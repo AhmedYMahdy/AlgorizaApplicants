@@ -1,0 +1,56 @@
+﻿@model List<AlgorizaApplicants.DAL.DTOs.ApplicantDetailsDTO>
+@{
+    ViewData["Title"] = "Applicants";
+}
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Applicants List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Applicant" asp-action="Add" class="btn btn-primary"> Add New Applicant</a>
+        </div>
+    </div>
+</div>
+<table class="table table-bordered table-striped" style="width: 100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Family Name</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>hired</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.Id</td>
+                <td>@obj.Name</td>
+                <td>@obj.FamilyName</td>
+                <td>@obj.Address</td>
+                <td>@obj.CountryOfOrigin</td>
+                <td>@obj.EmailAddress</td>
+                <td>@obj.Age</td>
+                @if (@obj.Hired==true)
+                    {
+                        <td style="color: green">  Hired</td>
+                    }
+                    @if (@obj.Hired==false)
+                    {
+                    <td style="color: red"> Not Yet</td>
+                    }
+                <td>
+                    <a asp-controller="Applicant" asp-action="Remove" asp-route-id="@obj.Id" class="btn btn-primary">Remove</a>
+                    <a asp-controller="Applicant" asp-action="Update" asp-route-id="@obj.Id" class="btn btn-primary">Update</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

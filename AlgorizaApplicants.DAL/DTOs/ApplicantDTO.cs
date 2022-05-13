@@ -29,7 +29,7 @@ namespace AlgorizaApplicants.DAL.DTOs
             RuleFor(a => a.Address).NotNull().NotEmpty().MinimumLength(10);
             RuleFor(a => a.CountryOfOrigin).NotNull().NotEmpty();
             RuleFor(a => a.EmailAddress).NotNull().NotEmpty().EmailAddress();
-            RuleFor(a => a.Age).NotNull().NotEmpty().ExclusiveBetween(20, 60);
+            RuleFor(a => a.Age).NotNull().NotEmpty().ExclusiveBetween(19, 61);
         }
     }
 

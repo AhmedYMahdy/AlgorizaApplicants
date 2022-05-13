@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlgorizaApplicants.API.Helpers
 {
-    public class BaseController : ControllerBase
+    public class BaseController : Controller
     {
         protected ObjectResult Success(object data=null)
         {
