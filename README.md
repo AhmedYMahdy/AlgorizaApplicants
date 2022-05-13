@@ -1,4 +1,4 @@
-**Introduction: ** 
+**Introduction** 
   * This application is a simple system to run CRUD opertations on Applicants table.
   * In This application i used technologies like(.Net Core MVC and Entity Framework Core).
   * The system has 2 interfaces Swagger interface for developers, and the Views for the users.
