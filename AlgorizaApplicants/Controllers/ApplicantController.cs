@@ -13,10 +13,12 @@ namespace AlgorizaApplicants.API.Controllers
     public class ApplicantController : BaseController
     {
         private readonly IApplicantsService _applicantsService;
-        
-        public ApplicantController(IApplicantsService applicantsService)
+        private readonly ICountriesService _countriesService;
+
+        public ApplicantController(IApplicantsService applicantsService, ICountriesService countriesService)
         {
             _applicantsService = applicantsService;
+            _countriesService = countriesService;
         }
 
         [HttpPost("Add")]
@@ -26,6 +28,9 @@ namespace AlgorizaApplicants.API.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!await _countriesService.ValidateCountry(applicantDto.CountryOfOrigin))
+                    return Error("Error invalid Country", (int)HttpStatusCode.UnsupportedMediaType);
+
                 var result = await _applicantsService.Add(applicantDto);
                 if (!result)
                     return Error("Error in Adding Applicant", (int)HttpStatusCode.BadRequest);
@@ -41,6 +46,9 @@ namespace AlgorizaApplicants.API.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!await _countriesService.ValidateCountry(applicantDto.CountryOfOrigin))
+                    return Error("Error invalid Country", (int)HttpStatusCode.UnsupportedMediaType);
+
                 var result = await _applicantsService.Update(applicantDto);
                 if (!result)
                     return Error("Error in Updating Applicant", (int)HttpStatusCode.BadRequest);
