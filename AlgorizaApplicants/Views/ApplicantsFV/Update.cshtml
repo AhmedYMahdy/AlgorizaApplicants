@@ -23,7 +23,7 @@
         </div>
         <div class="mb-3">
             <label asp-for="CountryOfOrigin"></label>
-            <input asp-for="CountryOfOrigin" onchange="ValidateCountry()" required="true" placeholder="Egypt, Berlin, Etc.." class="form-control"/>
+            <input asp-for="CountryOfOrigin" required="true" placeholder="Egypt, Berlin, Etc.." class="form-control"/>
             <span asp-validation-for="CountryOfOrigin" class="text-danger"></span>
         </div>
         <div class="mb-3">
@@ -35,13 +35,13 @@
             <input asp-for="Age" type="number" min="20" max="60" required="true" class="form-control"/>
         </div>
         <div class="mb-3 form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <input class="form-check-input" asp-for="Hired"  type="checkbox" id="gridCheck">
             <label class="form-check-label" for="gridCheck">
                 Hired?
             </label>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
-        <a asp-controller="Applicant" asp-action="Applicants" class="btn btn-secondary" style="width:150px"> Back To List </a>
+        <button type="submit" class="btn btn-primary" onsubmit="return ValidateCountry()" style="width:150px">Update</button>
+        <a asp-controller="ApplicantsFV" asp-action="Applicants" class="btn btn-secondary" style="width:150px"> Back To List </a>
     </div>
 </form>
 

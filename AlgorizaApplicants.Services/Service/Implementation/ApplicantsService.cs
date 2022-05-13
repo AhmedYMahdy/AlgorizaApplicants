@@ -81,7 +81,7 @@ namespace AlgorizaApplicants.Services.Service.Implementation
                 var applicantList = await _applicantRepository.GetAllAsync();
                 if (applicantList == null)
                     return null;
-                var applicants = _mapper.Map<List<ApplicantDetailsDTO>>(applicantList.OrderBy(a => a.Name));
+                var applicants = _mapper.Map<List<ApplicantDetailsDTO>>(applicantList.OrderBy(a => a.CreationDate));
                 return new PaginationObject<ApplicantDetailsDTO>(applicants, applicants.Count);
             }
             catch (Exception ex)

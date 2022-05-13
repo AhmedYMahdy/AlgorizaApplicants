@@ -25,4 +25,8 @@
     <ProjectReference Include="..\AlgorizaApplicants.Services\AlgorizaApplicants.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

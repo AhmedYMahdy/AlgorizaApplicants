@@ -13,78 +13,17 @@ namespace AlgorizaApplicants.API.Controllers
     public class ApplicantController : BaseController
     {
         private readonly IApplicantsService _applicantsService;
-
         
         public ApplicantController(IApplicantsService applicantsService)
         {
             _applicantsService = applicantsService;
         }
 
-        [HttpGet("applicants")]
-        public IActionResult Applicants()
-        {
-            return View(_applicantsService.GetAll().Result.DataList);
-        }
-
-        [HttpGet("Add")]
-        public IActionResult Add()
-        {
-            return View();
-        }
-
-        [HttpGet("Update/{id}")]
-        public IActionResult Update(long id)
-        {
-
-            return View(_applicantsService.GetById(id).Result);
-        }
-
         [HttpPost("Add")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(ApplicantDTO applicantDto)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _applicantsService.Add(applicantDto);
-                if (!result)
-                    return BadRequest("Error in Adding Applicant");
-                return RedirectToAction("Applicants");
-            }
-            return BadRequest("Error invalid parameters");
-
-        }
-
-        [HttpPost("Update/{id}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(ApplicantDetailsDTO applicantDto)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _applicantsService.Update(applicantDto);
-                if (!result)
-                    return BadRequest("Error in Updating Applicant");
-                return RedirectToAction("Applicants");
-            }
-            return BadRequest("Error invalid parameters");
-        }
-
-        [HttpGet("Remove/{id}")]
-        [ValidateAntiForgeryToken]
         [ProducesResponseType(typeof(GlobalResponse<bool>), 200)]
-        public async Task<IActionResult> Remove(long id)
+        public async Task<IActionResult> Add([FromBody]ApplicantDTO applicantDto)
         {
-            var result = await _applicantsService.Remove(id);
-            if (result)
-                return RedirectToAction("Applicants");
-            return NotFound("Error in removing Applicants");
-        }
-
-        [HttpPost("Add2")]
-        [ValidateAntiForgeryToken]
-        [ProducesResponseType(typeof(GlobalResponse<bool>), 200)]
-        public async Task<IActionResult> Add2(ApplicantDTO applicantDto)
-        {
-
             if (ModelState.IsValid)
             {
                 var result = await _applicantsService.Add(applicantDto);
@@ -96,9 +35,9 @@ namespace AlgorizaApplicants.API.Controllers
 
         }
 
-        [HttpPost("Update2")]
+        [HttpPost("Update")]
         [ProducesResponseType(typeof(GlobalResponse<bool>), 200)]
-        public async Task<IActionResult> Update2(ApplicantDetailsDTO applicantDto)
+        public async Task<IActionResult> Update([FromBody] ApplicantDetailsDTO applicantDto)
         {
             if (ModelState.IsValid)
             {
@@ -131,9 +70,9 @@ namespace AlgorizaApplicants.API.Controllers
         }
 
 
-        [HttpDelete("Remove2/{id}")]
+        [HttpDelete("Remove/{id}")]
         [ProducesResponseType(typeof(GlobalResponse<bool>), 200)]
-        public async Task<IActionResult> Remove2(long id)
+        public async Task<IActionResult> Remove(long id)
         {
             var result = await _applicantsService.Remove(id);
             if (!result)
