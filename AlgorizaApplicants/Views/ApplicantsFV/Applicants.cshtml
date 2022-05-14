@@ -58,8 +58,6 @@
                 method: 'Delete' //This could be any http method
             })
             .then((response) => {
-                console.log(response.body);
-                debugger;
                 location.replace('https://localhost:7228/api/ApplicantsFV/Applicants/');
             });
     }
