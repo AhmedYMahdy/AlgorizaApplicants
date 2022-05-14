@@ -55,7 +55,7 @@
 <script>
     function RemoveApplicant(id) {
         return fetch('https://localhost:7228/api/Applicant/Remove/'+id, {
-                method: 'Delete' //This could be any http method
+                method: 'Delete'
             })
             .then((response) => {
                 location.replace('https://localhost:7228/api/ApplicantsFV/Applicants/');
