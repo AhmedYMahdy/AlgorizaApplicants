@@ -13,7 +13,7 @@
     This App doesn't need an installation, just we need to run command "update-database" to apply the migrations into the DB.
     
 **Postman Collection:**
-   https://www.getpostman.com/collections/5aea1a005eb4fc5debbc.
+   https://www.getpostman.com/collections/172a06abf1cef226af91.
     
 
     
