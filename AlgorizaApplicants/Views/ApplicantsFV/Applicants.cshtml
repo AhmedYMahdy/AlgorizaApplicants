@@ -14,43 +14,54 @@
 </div>
 <table class="table table-bordered table-striped" style="width: 100%">
     <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Family Name</th>
-            <th>Address</th>
-            <th>Country Of Origin</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Hired</th>
-            <th>Actions</th>
-        </tr>
+    <tr>
+        <th>Name</th>
+        <th>Family Name</th>
+        <th>Address</th>
+        <th>Country Of Origin</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Hired</th>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var obj in Model)
-        {
-            <tr>
-                <td>@obj.Id</td>
-                <td>@obj.Name</td>
-                <td>@obj.FamilyName</td>
-                <td>@obj.Address</td>
-                <td>@obj.CountryOfOrigin</td>
-                <td>@obj.EmailAddress</td>
-                <td>@obj.Age</td>
-                @if (@obj.Hired==true)
-                    {
-                        <td style="color: green">  Hired</td>
-                    }
-                    @if (@obj.Hired==false)
-                    {
-                    <td style="color: red"> Not Yet</td>
-                    }
-                <td>
-                    <a asp-controller="ApplicantsFV" asp-action="Update" asp-route-id="@obj.Id" class="btn btn-primary">Update</a>
-                    <a asp-controller="ApplicantsFV" asp-action="Remove" asp-route-id="@obj.Id" class="btn btn-danger">Remove</a>
-                </td>
-            </tr>
-        }
-    </tbody>
+    @foreach (var obj in Model)
+    {
+        <tr>
+            <td>@obj.Name</td>
+            <td>@obj.FamilyName</td>
+            <td>@obj.Address</td>
+            <td>@obj.CountryOfOrigin</td>
+            <td>@obj.EmailAddress</td>
+            <td>@obj.Age</td>
+            @if (@obj.Hired==true)
+            {
+                <td style="color: green">  Hired</td>
+            }
+            @if (@obj.Hired==false)
+            {
+                <td style="color: red"> Not Yet</td>
+            }
+            <td>
+                <a asp-controller="ApplicantsFV" asp-action="Update" asp-route-id="@obj.Id" class="btn btn-primary"style="width:100px">Update</a>
+                <button type="submit" onclick="RemoveApplicant(@obj.Id)" class="btn btn-danger" style="width:100px">Remove</button>
+            </td>
+        </tr>
+    }
 </table>
+
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function RemoveApplicant(id) {
+        return fetch('https://localhost:7228/api/Applicant/Remove/'+id, {
+                method: 'Delete' //This could be any http method
+            })
+            .then((response) => {
+                console.log(response.body);
+                debugger;
+                location.replace('https://localhost:7228/api/ApplicantsFV/Applicants/');
+            });
+    }
+</script>
 

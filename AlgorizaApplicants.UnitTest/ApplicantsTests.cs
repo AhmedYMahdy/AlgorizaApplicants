@@ -21,12 +21,14 @@ namespace AlgorizaApplicants.UnitTest
     {
 
         private IApplicantsService _applicantService;
+        private ICountriesService _countriesService;
         private ApplicantController _controller;
 
         public ApplicantsTests()
         {
             _applicantService = Substitute.For<IApplicantsService>();
-            _controller = new ApplicantController(_applicantService);
+            _countriesService = Substitute.For<ICountriesService>();
+            _controller = new ApplicantController(_applicantService, _countriesService);
         }
 
         [Fact]
@@ -34,6 +36,7 @@ namespace AlgorizaApplicants.UnitTest
         {
             //Arrange
             _applicantService.Add(Arg.Any<ApplicantDTO>()).Returns(true);
+            _countriesService.ValidateCountry(Arg.Any<string>()).Returns(true);
 
             //Act
             var result = await _controller.Add(new ApplicantDTO
@@ -44,7 +47,7 @@ namespace AlgorizaApplicants.UnitTest
                 Address = "Cairo, Egypt.",
                 Hired = false,
                 EmailAddress = "Ahmed.ucef@gmail.com",
-                CountryOfOrigin = "Egy"
+                CountryOfOrigin = "Egypt"
             });
 
             //Assert
@@ -55,21 +58,22 @@ namespace AlgorizaApplicants.UnitTest
         }
 
         [Fact]
-        public async Task AddApplicant_ReturnsBadRequest()
+        public async Task AddApplicant_ReturnsBadRequest() // Failure in adding an applicant
         {
             //Arrange
             _applicantService.Add(Arg.Any<ApplicantDTO>()).Returns(false);
+            _countriesService.ValidateCountry(Arg.Any<string>()).Returns(true);
 
             //Act
             var result = await _controller.Add(new ApplicantDTO
             {
-                Name = "Ah",
-                FamilyName = "Ma",
-                Age = 18,
-                Address = "Cai,Eg.",
+                Name = "Ahmed",
+                FamilyName = "Mahdy",
+                Age = 26,
+                Address = "Cairo, Egypt.",
                 Hired = false,
-                EmailAddress = "Ahmed.ucef",
-                CountryOfOrigin = "Egy"
+                EmailAddress = "Ahmed.ucef@gmail.com",
+                CountryOfOrigin = "Egypt"
             });
 
             //Assert
@@ -82,7 +86,7 @@ namespace AlgorizaApplicants.UnitTest
         
         
         [Fact]
-        public async Task AddApplicant_ReturnsUnSupportedMediaType()
+        public async Task AddApplicant_ReturnsUnSupportedMediaType() // Failure in Model itself
         {
             //Arrange
             _applicantService.Add(Arg.Any<ApplicantDTO>()).Returns(false);
@@ -113,7 +117,8 @@ namespace AlgorizaApplicants.UnitTest
         public async Task UpdateApplicant_ReturnsOk()
         {
             //Arrange
-            _applicantService.Update(Arg.Any<ApplicantDetailsDTO>()).Returns(true);
+            _applicantService.Update(Arg.Any<ApplicantDetailsDTO>()).Returns(true); 
+            _countriesService.ValidateCountry(Arg.Any<string>()).Returns(true);
 
             //Act
             var result = await _controller.Update(new ApplicantDetailsDTO()
@@ -137,10 +142,11 @@ namespace AlgorizaApplicants.UnitTest
 
 
         [Fact]
-        public async Task UpdateApplicant_ReturnsBadRequest()
+        public async Task UpdateApplicant_ReturnsBadRequest() // Failure in updating an applicant
         {
             //Arrange
             _applicantService.Update(Arg.Any<ApplicantDetailsDTO>()).Returns(false);
+            _countriesService.ValidateCountry(Arg.Any<string>()).Returns(true);
 
             //Act
             var result = await _controller.Update(new ApplicantDetailsDTO()
@@ -164,7 +170,7 @@ namespace AlgorizaApplicants.UnitTest
         }
 
         [Fact]
-        public async Task UpdateApplicant_ReturnsUnSupportedMediaType()
+        public async Task UpdateApplicant_ReturnsUnSupportedMediaType() // Failure in Model itself
         {
             //Arrange
             _applicantService.Update(Arg.Any<ApplicantDetailsDTO>()).Returns(false);
@@ -231,6 +237,7 @@ namespace AlgorizaApplicants.UnitTest
             //Arrange
             var applicant = new ApplicantDetailsDTO();
             _applicantService.GetById(Arg.Any<long>()).Returns(applicant);
+
             //Act
             var result = await _controller.GetById(3);
 

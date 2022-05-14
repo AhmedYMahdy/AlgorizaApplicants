@@ -14,6 +14,7 @@ namespace AlgorizaApplicants.API.Controllers
         {
             _applicantsService = applicantsService;
         }
+
         [HttpGet("applicants")]
         public IActionResult Applicants()
         {
@@ -60,17 +61,6 @@ namespace AlgorizaApplicants.API.Controllers
                 return RedirectToAction("Applicants");
             }
             return BadRequest("Error invalid parameters");
-        }
-
-        [HttpGet("Remove/{id}")]
-        [ValidateAntiForgeryToken]
-        [ProducesResponseType(typeof(GlobalResponse<bool>), 200)]
-        public async Task<IActionResult> Remove(long id)
-        {
-            var result = await _applicantsService.Remove(id);
-            if (result)
-                return RedirectToAction("Applicants");
-            return NotFound("Error in removing Applicants");
         }
     }
 }
