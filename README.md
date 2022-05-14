@@ -6,7 +6,7 @@
   * And you can access the views using this like: https://localhost:7228/api/ApplicantsFV/applicants.
   * Both interface you can access after running the application, by default it opens with the Views interface.
   * In the system I applied some validations on the inputs on both sides (client-side and Server-side), one of those validation
-  is on Country which I used an external api, I integrated with this api "https://restcountries.com/v3.1/name/"to Validate the country.
+  is on Country which I used an external api, I integrated with this api "https://restcountries.com/v3.1/name/" to Validate the country.
   * Unit testing is applied in this system.
 
 **Installation**
